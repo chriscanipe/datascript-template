@@ -1,0 +1,13 @@
+{
+    "name": "webapp-template",
+    "version": "0.0.1",
+    "devDependencies": {
+        "d3": "^5.5.0",
+        "node-xlsx": "^0.10.0",
+        "file-system": "^2.2.2 ",
+        "request": "^2.81.0",
+        "async": "^2.5.0",
+        "json2csv": "^3.11.1",
+        "lodash" : "^4.17.15"
+    }
+}
