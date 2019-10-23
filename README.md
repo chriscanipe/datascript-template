@@ -56,8 +56,6 @@ This simply stringifies the object array and writes it to a file.
 
 `filename` is a string that will be used to name your file. If no string is passed, the file will be called `data.json`.
 
----
-
 [#](#write-csv) **writeCSV**(array, filename)
 
 This uses the `json2csv` library to turn an object array into CSV.
