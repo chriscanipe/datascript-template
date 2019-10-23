@@ -66,13 +66,13 @@ function setData(data1, data2) {
 }
 
 
-function writeJSON(data) {
+function writeJSON(data, filename) {
 
     //Stringify the data
     var theJson = JSON.stringify(data);
 
     //...and write it to an output.json file. (or whatever you want to call it)
-    fs.writeJSON("data.json", theJson, function(err) {
+    fs.writeFile(`${filename}.json`, theJson, function(err) {
         if (err) return console.log(err);
         console.log('Data Success.');
     });
@@ -81,7 +81,7 @@ function writeJSON(data) {
 }
 
 
-function writeCsv(data) {
+function writeCsv(data, filename) {
 
     let fields = Object.keys(data[0]); //Column headers (must exist in each object in your array)
     let json2csvParser = new json2csv({
@@ -90,7 +90,7 @@ function writeCsv(data) {
     let csv = json2csvParser.parse(data);
 
     //...and write it to an output.json file. (or whatever you want to call it)
-    fs.writeFile("data.csv", csv, err => {
+    fs.writeFile(`${filename}.csv`, csv, err => {
         if (err) return console.log(err);
         console.log('Data Success.');
     });
@@ -98,7 +98,7 @@ function writeCsv(data) {
 }
 
 
-
+init();
 
 /* ===+===+===+===+===+===+=== */
 /* U T I L I T I E S */
