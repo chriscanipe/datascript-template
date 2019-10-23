@@ -19,13 +19,13 @@ function init() {
         [
 
             function(callback) { //CSV EXAMPLE
-                fs.readFile('hca_enrollment_dec17.csv', 'utf8', function(err, d) {
+                fs.readFile('some-csv-file.csv', 'utf8', function(err, d) {
                     let data = d3.csvParse(d); //USE THE D3 CSV PARSER TO GET OBJECT ARRAY
                     callback(null, data);
                 });
             },
             function(callback) { //EXCEL EXAMPLE
-                var data = xlsx.parse('nst-est2017-01.xlsx');
+                var data = xlsx.parse('some-excel-file.xlsx');
                 callback(null, data);
             }
 
@@ -40,10 +40,10 @@ function init() {
             //     data : [[THIS DATA IS A RAW ARRAY OF ARRAYS]]
             // }]
 
-            let hca = results[0];
-            let pop = toObjectArray(results[1][1].data); //USE THE toObjectArray() FUNCTION TO CONVERT THE EXCEL DATA TO AN OBJECT ARRAY
+            let data1 = results[0];
+            let data2 = toObjectArray(results[1][0].data); //USE THE toObjectArray() FUNCTION TO CONVERT THE EXCEL DATA TO AN OBJECT ARRAY
 
-            setData.init(hca, pop);
+            setData(data1, data2);
 
         }
     )
@@ -52,19 +52,16 @@ function init() {
 }
 
 
-var setData = {
-    init: function(data1, data2) {
+function setData(data1, data2) {
 
-        let theData = [];
-        let theLookup = {};
+    let theData = [];
+    let theLookup = {};
 
-        //The goal is usally to get your dataset organized as a clean array of objects.
-        //I often append data to a dictionary-type object called `theLookup`, then spin that out into an array.
-        //That array is then passed to either `writeJSON()` or `writeCSV`
+    //The goal is usally to get your dataset organized as a clean array of objects.
+    //I often append data to a dictionary-type object called `theLookup`, then spin that out into an array.
+    //That array is then passed to either `writeJSON()` or `writeCSV`
 
-        writeJSON(theData);
-
-    }
+    writeJSON(theData);
 
 }
 
@@ -87,11 +84,13 @@ function writeJSON(data) {
 function writeCsv(data) {
 
     let fields = Object.keys(data[0]); //Column headers (must exist in each object in your array)
-    let json2csvParser = new json2csv({ fields });
+    let json2csvParser = new json2csv({
+        fields
+    });
     let csv = json2csvParser.parse(data);
 
     //...and write it to an output.json file. (or whatever you want to call it)
-    fs.writeFile("data.csv", csv, err=> {
+    fs.writeFile("data.csv", csv, err => {
         if (err) return console.log(err);
         console.log('Data Success.');
     });
