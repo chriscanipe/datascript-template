@@ -25,11 +25,11 @@ This is a Node.js script that I often use to clean and shape large datasets. It 
 #### `init()`
 Contains an `async` function that lets you load an array of data requests. Simply add as many files as you wish to the array, then catch them in the `results` array in the callback. The called data will appear in the `results` array in the order in which the cals they were made.
 
-#### CSV, TSV, and JSON files
+##### CSV, TSV, and JSON files
 
 The `async` function uses the `d3-fetch` parsing method, which can parse CSV, TSV, and JSON among other formats. Simple parse the requested output before passing it to the callback.
 
-#### Excel files
+##### Excel files
 
 The Excel parser returns an array of objects, one for each worksheet in the file:
 
