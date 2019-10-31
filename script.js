@@ -62,6 +62,7 @@ function setData(data1, data2) {
     //That array is then passed to either `writeJSON()` or `writeCSV`
 
     writeJSON(theData);
+    //writeCSV(theData);
 
 }
 
@@ -71,7 +72,7 @@ function writeJSON(data, filename) {
     //Stringify the data
     var theJson = JSON.stringify(data);
 
-    //...and write it to an output.json file. (or whatever you want to call it)
+    //...and write it to an data.json file. (or whatever you want to call it)
     fs.writeFile(`${filename}.json`, theJson, function(err) {
         if (err) return console.log(err);
         console.log('Data Success.');
@@ -81,16 +82,17 @@ function writeJSON(data, filename) {
 }
 
 
-function writeCsv(data, filename) {
+function writeCSV(arr, filename) {
 
-    let fields = Object.keys(data[0]); //Column headers (must exist in each object in your array)
-    let json2csvParser = new json2csv({
-        fields
+    let fields = Object.keys(arr[0]); //Column headers (must exist in each object in your array)
+    
+    let csvData = json2csv({
+        data: arr,
+        fields: fields
     });
-    let csv = json2csvParser.parse(data);
 
-    //...and write it to an output.json file. (or whatever you want to call it)
-    fs.writeFile(`${filename}.csv`, csv, err => {
+    //...and write it to a data.csv file. (or whatever you want to call it)
+    fs.writeFile(`${filename}.csv`, csvData, err => {
         if (err) return console.log(err);
         console.log('Data Success.');
     });
@@ -98,12 +100,16 @@ function writeCsv(data, filename) {
 }
 
 
+
 init();
+
+
+
+
 
 /* ===+===+===+===+===+===+=== */
 /* U T I L I T I E S */
 /* ===+===+===+===+===+===+=== */
-
 
 //Converts that crazy Excel data format into an object array.
 function toObjectArray(origArray) {
